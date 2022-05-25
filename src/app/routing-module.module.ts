@@ -1,64 +1,64 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ClientsComponent } from './components/pages/clienti.page';
-import { DettagliCliente } from './components/pages/dettagli-cliente';
-import { FatturePage } from './components/pages/fatture.page';
-import { HomePage } from './components/pages/home.page';
-import { LoginPage } from './components/pages/login.page';
-import { NewClientePage } from './components/pages/new-cliente.page';
-import { NewFatturaPage } from './components/pages/new-fattura.page';
-import { SignUpPage } from './components/pages/sign-up.page';
-import { UpdateFatturaPage } from './components/pages/update-fattura.page';
-import { UtentiPage } from './components/pages/utenti.page';
-import { AuthGuard } from './_guard/auth.guard';
+import { HomeComponent } from './features/home/home.component';
+import { CustomersComponent } from './features/customers/customers.component';
+import { CustomerDetailsComponent } from './features/customer-details/customer-details.component';
+import { CustomerNewComponent } from './features/customer-new/customer-new.component';
+import { InvoicesComponent } from './features/invoices/invoices.component';
+import { InvoiceUpdateComponent } from './features/invoice-update/invoice-update.component';
+import { InvoiceNewComponent } from './features/invoice-new/invoice-new.component';
+import { SignupComponent } from './features/auth/signup/signup.component';
+import { LoginComponent } from './features/auth/login/login.component';
+import { UsersComponent } from './features/users/users.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {
     path:'',
-    component:HomePage,
+    component:HomeComponent,
     canActivate: [AuthGuard]
   },
   {
     path:'login',
-    component:LoginPage
+    component:LoginComponent
   },
   {
     path:'sign-up',
-    component:SignUpPage
+    component:SignupComponent
   },
   {
     path:'utenti',
-    component:UtentiPage,
+    component:UsersComponent,
     canActivate: [AuthGuard]
   },
   {
     path:'clienti',
-    component:ClientiPage,
+    component:CustomersComponent,
     canActivate: [AuthGuard]
   },
   {
     path:'clienti/:id',
-    component:NewClientePage,
+    component:CustomerNewComponent,
     canActivate: [AuthGuard]
   },
   {
     path:'fattura-cliente/:id',
-    component:DettagliCliente,
+    component:CustomerDetailsComponent,
     canActivate: [AuthGuard]
   },
   {
     path:'nuova-fattura/:id',
-    component: NewFatturaPage,
+    component: InvoiceNewComponent,
     canActivate:[AuthGuard]
   },
   {
     path: 'modifica-fattura/:id',
-    component: UpdateFatturaPage,
+    component: InvoiceUpdateComponent,
     canActivate:[AuthGuard]
   },
   {
     path:'fatture',
-    component:FatturePage,
+    component:InvoicesComponent,
     canActivate: [AuthGuard]
   }
 ];
