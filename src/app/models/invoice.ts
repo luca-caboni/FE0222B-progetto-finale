@@ -1,14 +1,12 @@
-import { Customer } from "./customer";
+import { Customer } from './customer';
+import { StatusInvoice } from './status-invoice';
 
-export class Invoice {
-  id!: number;
-  data!: string;
-  number!: number;
-  year!: number;
-  amount!: number;
-  status!: {
-    id: number;
-    name: string;
-  };
-  customer: Customer = new Customer()
+export interface Invoice {
+  id: number;
+  data: string;
+  number: number;
+  year: number;
+  importo: number;
+  status: StatusInvoice;
+  customer: Customer;
 }

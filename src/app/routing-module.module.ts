@@ -14,53 +14,52 @@ import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {
-    path:'',
-    component:HomeComponent,
-    canActivate: [AuthGuard]
+    path: '',
+    component: HomeComponent,
+    canActivate: [AuthGuard],
   },
   {
-    path:'login',
-    component:LoginComponent
+    path: 'login',
+    component: LoginComponent,
   },
   {
-    path:'signup',
-    component:SignupComponent
+    path: 'signup',
+    component: SignupComponent,
   },
   {
-    path:'utenti',
-    component:UsersComponent,
-    canActivate: [AuthGuard]
+    path: 'users',
+    component: UsersComponent,
+    canActivate: [AuthGuard],
   },
   {
-    path:'clienti',
-    component:CustomersComponent,
-    canActivate: [AuthGuard]
+    path: 'invoices',
+    component: InvoicesComponent,
+    canActivate: [AuthGuard],
   },
   {
-    path:'clienti/:id',
-    component:CustomerNewComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path:'fattura-cliente/:id',
-    component:CustomerDetailsComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path:'nuova-fattura/:id',
+    path: 'invoices/add',
     component: InvoiceNewComponent,
-    canActivate:[AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
-    path: 'modifica-fattura/:id',
-    component: InvoiceUpdateComponent,
-    canActivate:[AuthGuard]
+    path: 'invoices/:id',
+    component: CustomerDetailsComponent,
+    canActivate: [AuthGuard],
   },
   {
-    path:'fatture',
-    component:InvoicesComponent,
-    canActivate: [AuthGuard]
-  }
+    path: 'customers',
+    component: CustomersComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'customers/add',
+    component: CustomerNewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '**',
+    redirectTo: '/',
+  },
 ];
 
 @NgModule({

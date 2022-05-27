@@ -1,6 +1,17 @@
-<div class="contenitore">
-  <div class="img-box">
-    <h1 class="display-3 text-center text-white fw-bold">Epicode Crm</h1>
-    <h3 class="display-5 text-center text-white">Made by <span class="gradient">Luca Caboni</span></h3>
-  </div>
+<div class="container">
+      <h1 class="display-3 text-center fw-bold">Epicode Crm</h1>
+      <h3 class="display-5 fs-5 text-center">Made by <span class="gradient">Luca Caboni</span></h3>
 </div>
+
+<div class="container redirect text-center">
+
+  <h3>Dove vuoi andare?</h3>
+  <ul class="text-center fs-5">
+    <li [routerLink]="['/users']" routerLinkActive="active">Utenti</li>
+    <li [routerLink]="['/invoices']" routerLinkActive="active">Fatture</li>
+    <li [routerLink]="['/customers']" routerLinkActive="active">Clienti</li>
+    <li [routerLink]="['/contatti']" routerLinkActive="active">Contatti</li>
+  </ul>
+
+</div>
+

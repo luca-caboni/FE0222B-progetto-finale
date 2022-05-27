@@ -1,1 +1,69 @@
-<p>customers works!</p>
+<div id="header">
+  <h1 class="text-center mt-3">Elenco clienti</h1>
+</div>
+
+  <button [routerLink]="['/customers/add']" color="accent" mat-flat-button><mat-icon>add</mat-icon> Crea cliente</button>
+
+
+<div *ngIf="customers else loading">
+  <div class="container">
+    <div id="navigation" class="navigation row mb-3">
+      <div class="col text-center"><button class="back" mat-raised-button color="accent"
+          (click)="backPage()" *ngIf="currentIndex">Pagina precedente</button></div>
+      <div class="col text-center"><button class="forward" mat-raised-button color="accent"
+          (click)="forwardPage()">Pagina successiva</button></div>
+    </div>
+  </div>
+
+  <table class="container-md">
+    <mat-table [dataSource]="customers" class="mat-elevation-z8 customer">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef class="fs-5"> ID </mat-header-cell>
+        <mat-cell matTooltip="Vai alle fatture del cliente" [matTooltipPosition]="'right'" *matCellDef="let customer"
+          [routerLink]="['/customers', customer.id]"> {{customer.id}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="ragioneSociale">
+        <mat-header-cell *matHeaderCellDef class="fs-5"> Ragione Sociale </mat-header-cell>
+        <mat-cell matTooltip="Vai al cliente" [matTooltipPosition]="'left'" *matCellDef="let customer"
+          [routerLink]="['/customers', customer.id]"> {{customer.ragioneSociale}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="partitaIva">
+        <mat-header-cell *matHeaderCellDef class="fs-5"> Partita Iva </mat-header-cell>
+        <mat-cell *matCellDef="let customer"> {{customer.partitaIva}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="telefono">
+        <mat-header-cell *matHeaderCellDef class="fs-5"> Telefono </mat-header-cell>
+        <mat-cell matTooltip="Chiama" [matTooltipPosition]="'left'" (click)="call(customer.telefono)"
+          *matCellDef="let customer">
+          <mat-icon>phone</mat-icon>{{customer.telefono}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef class="fs-5"> Email </mat-header-cell>
+        <mat-cell matTooltip="Invia email" [matTooltipPosition]="'right'" (click)="sendMail(customer.email)"
+          *matCellDef="let customer">
+          <mat-icon>mail</mat-icon>{{customer.email}}
+        </mat-cell>
+      </ng-container>
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </table>
+
+
+  <section><em>Aggiornato alle {{hour}} del {{day}}</em></section>
+
+</div>
+
+
+<ng-template #loading>
+  <div id="loading">
+    <mat-spinner color="accent"></mat-spinner>
+  </div>
+</ng-template>

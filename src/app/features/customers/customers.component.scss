@@ -1,0 +1,28 @@
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+
+.forward{
+  text-align: end;
+}
+
+section {
+  margin-top: 10px;
+  text-align: end;
+  width: 90%;
+}
+
+#loading {
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
+}
+
+
+

@@ -1,0 +1,17 @@
+.title{
+  background-color:rgb(199, 199, 199);
+  border: 1px solid rgb(165, 165, 165);
+}
+li {
+  margin-top: 10px;
+  display:inline-block;
+  cursor: pointer;
+  font-size:1.2rem;
+  margin-left: 10px;
+}
+
+ul {
+  margin: auto;
+  text-align:center;
+  list-style-type: none;
+}

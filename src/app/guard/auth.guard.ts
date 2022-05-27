@@ -8,7 +8,7 @@ import { CanActivate, Router } from '@angular/router';
 export class AuthGuard implements CanActivate {
   constructor(private router: Router) {}
   canActivate() {
-    if (localStorage.getItem('utente')) {
+    if (localStorage.getItem('user')) {
       return true;
     }
     return this.router.createUrlTree(['/login']);

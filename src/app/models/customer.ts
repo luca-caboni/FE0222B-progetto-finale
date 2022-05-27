@@ -2,17 +2,17 @@ import { Site } from "./geo-data";
 
 export class Customer {
   id!: number;
-  businessName!: string;
-  ivaNumber!: number;
-  typeCustomer!: string;
+ ragioneSociale!: string;
+  partitaIva!: number;
+  tipoCliente!: string;
   email!: string;
   pec!: string;
-  cellular!: number;
-  nameContact!: string;
-  lastnameContact!: string;
-  cellularContact!: number;
-  emailContact!: string;
+  telefono!: number;
+  nomeContatto!: string;
+  cognomeContatto!: string;
+  telefonoContatto!: number;
+  emailContatto!: string;
 
-  addressOperationalSite: Site = new Site()
-  addressLegalSite: Site = new Site()
+  indirizzoSedeOperativa: Site = new Site()
+  indirizzoSedeLegale: Site = new Site()
 }

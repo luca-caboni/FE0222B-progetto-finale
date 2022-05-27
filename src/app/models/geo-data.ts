@@ -1,20 +1,20 @@
 export class Province {
   id!:number;
-  name!:string;
-  abbr!:string;
+  nome!:string;
+  sigla!:string;
 }
 
 export class City {
   id!: number;
-  name!: string;
-  province: Province = new Province();
+  nome!: string;
+  provincia: Province = new Province();
 }
 
 export class Site {
   id!: number;
   via!: string;
-  civic!: number;
+  civico!: number;
   cap!: number;
-  location!: string;
-  city: City = new City();
+  localita!: string;
+  comune: City = new City();
 }

@@ -26,6 +26,6 @@ export class LoginComponent implements OnInit {
   onLogin(form: any) {
     console.log(form.value);
     this.authSrv.login(form.value);
-    this.router.navigate(['/'])
+    this.router.navigate([''])
   }
 }

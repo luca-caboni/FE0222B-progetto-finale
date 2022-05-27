@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { MatAccordion } from '@angular/material/expansion';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,14 +9,16 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  @ViewChild(MatAccordion) accordion!: MatAccordion;
 
-
-  constructor(private authSrv: AuthService) { }
+  user = localStorage.getItem('user');
+  constructor(private router:Router, private authSrv: AuthService) { }
 
   ngOnInit(): void {
-
   }
 
-
-
+  onLogout() {
+    this.accordion.closeAll()
+    this.authSrv.logout();
+  }
 }

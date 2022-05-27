@@ -6,7 +6,7 @@ HttpClient
 @Injectable({
   providedIn: 'root'
 })
-export class ClientiService {
+export class CustomersService {
 
   pathApi:string
 

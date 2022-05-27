@@ -1,22 +1,42 @@
-.contenitore{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  width: 100vw;
-  height: 100vh;
-  overflow-y: hidden;
+.container{
+  margin-top: 5rem;
 }
-.img-box{
-  margin-top: 10em;
-  width: 800px;
-  height: 800px;
-  margin-left: 250px;
+
+li{
+  display: inline-block;
+  cursor: pointer;
+  margin: 15px;
+  font-size: 1.5rem;
 }
-h1{
-  background: -webkit-linear-gradient( 180deg, #ff9966  32%,  #fe7f76 63%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+
+li:hover{
+animation-name: pulse;
+animation-duration:1s;
 }
-.gradient{
-  border-bottom: 2px solid  #fe7f76
+
+ul{
+  list-style-type: none;
+  text-align: center;
+  padding: 0 !important;
+}
+
+
+
+//Keyframes animation
+
+@keyframes pulse {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
 }

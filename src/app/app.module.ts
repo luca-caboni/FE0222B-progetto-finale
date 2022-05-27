@@ -20,6 +20,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { AppRoutingModule } from './routing-module.module';
+import { DialogDeleteInvoiceComponent } from './features/dialog/dialog-delete-invoice.component'
+import { DialogModifyInvoiceComponent } from './features/dialog/dialog-modify-invoice.component'
 
 
 
@@ -36,7 +38,9 @@ import { AppRoutingModule } from './routing-module.module';
     InvoiceUpdateComponent,
     InvoicesComponent,
     UsersComponent,
-    NavbarComponent
+    NavbarComponent,
+    DialogDeleteInvoiceComponent,
+    DialogModifyInvoiceComponent
   ],
   imports: [
     BrowserModule,
