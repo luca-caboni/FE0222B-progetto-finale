@@ -1,83 +1,66 @@
 import { Component, OnInit } from '@angular/core';
-import { Customer } from '../../models/customer';
-import { InvoicesService } from '../../services/invoices.service'
-import { CustomersService } from '../../services/customers.service'
+import { PageEvent } from '@angular/material/paginator';
+import { CustomersService } from 'src/app/services/customers.service';
+import { DialogDeleteCustomerComponent} from '../dialog/dialog-delete-customer.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-users',
+  selector: 'app-customers',
   templateUrl: './customers.component.html',
-  styleUrls: ['./customers.component.scss']
+  styleUrls: ['./customers.component.scss'],
 })
-
 export class CustomersComponent implements OnInit {
-
-  page: number = 0
-  customers!: Customer[];
-  currentIndex: number = this.page;
-  displayedColumns = ['id', 'ragioneSociale', 'partitaIva', 'telefono', 'email'];
-
 
   data = new Date();
   hour = `${this.data.getHours()}:${this.data.getMinutes()}:${this.data.getSeconds()}`;
   day = `${this.data.getDate()}/${this.data.getMonth()}/${this.data.getFullYear()}`;
+  dataCustomers: any;
+  displayedColumns: string[] = [
+    'ragioneSociale',
+    'email',
+    'partitaIva',
+    'tipoClienti',
+    'emailContatto',
+    'comuneSedeOperativa',
+    'azioni',
+  ];
 
-
-  constructor(private customersSrv: CustomersService, public invoicesSrv: InvoicesService) { }
+  constructor(private customersSrv: CustomersService, public dialog: MatDialog, private router: Router) {}
 
   ngOnInit(): void {
-    this.customersSrv.getCustomers(this.page).subscribe({
-      next: (v) => {
-        console.log(v.content);
-        this.customers = v.content;
-      },
-      error: (e) => console.error(e),
-      complete: () => console.info('pagina customers recuperata'),
-    });
-  }
-  ngAfterViewChecked() {
-    console.log('dopo caricamento');
-  }
-
-  creaCliente() {//da finire
-    this.customersSrv.addCustomer;
-  }
-
-  forwardPage() {
-    this.currentIndex++;
-    console.log(this.currentIndex);
-    this.customersSrv.getCustomers(this.currentIndex).subscribe({
-      next: (v) => {
-        console.log(v.content);
-        this.customers = v.content;
-      },
-      error: (e) => console.error(e),
-      complete: () => console.info('pagina fatture acquisita'),
+    this.customersSrv.getCustomers(0, 20).subscribe((res) => {
+      console.log(res, res.content);
+      this.dataCustomers = res;
+      console.log(this.dataCustomers, this.dataCustomers.content);
     });
   }
 
-  backPage() {
+  onPageEvent(event: PageEvent) {
+    this.customersSrv
+      .getCustomers(event.pageIndex, event.pageSize)
+      .subscribe((res) => {
+        console.log(res);
+        this.dataCustomers = res;
+        console.log(this.dataCustomers);
+      });
+  }
 
-    this.currentIndex--;
-    console.log(this.currentIndex);
-    this.customersSrv.getCustomers(this.currentIndex).subscribe({
-      next: (v) => {
-        console.log(v.content);
-        this.customers = v.content;
-      },
-      error: (e) => console.error(e),
-      complete: () => console.info('pagina fatture acquisita'),
+  openDialog(): void {
+    const dialogDelCust = this.dialog.open(DialogDeleteCustomerComponent, {
+      width: '250px',
+    });
+
+    dialogDelCust.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 
-
-  sendMail(mail: string) {
-    console.log("mail");
-    window.location.href = "mailto:" + mail;
+  delete(id: number) {
+    this.openDialog();
+    console.log(id);
+    this.dataCustomers.content[id];
+    this.customersSrv.deleteCustomer(id).subscribe((res) => {});
   }
 
-  call(tel: number) {
-    console.log("tel");
-    window.location.href = "telto:" + tel;
-  }
 }
-

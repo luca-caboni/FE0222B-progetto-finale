@@ -19,7 +19,7 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {}
 
   onSignup(form: NgForm) {
-    this.authSrv.signup(form.value).subscribe({
+    this.authSrv.signUp(form.value).subscribe({
       next: (v) => {
         console.log(v);
         this.router.navigate(['/login'])

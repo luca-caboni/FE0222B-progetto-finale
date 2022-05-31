@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute } from '@angular/router';
+import { Invoice } from 'src/app/models/invoice';
+import { InvoicesService } from '../../services/invoices.service';
 
 @Component({
   selector: 'app-invoice-new',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InvoiceNewComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(private invoicesSrv: InvoicesService, private router: ActivatedRoute) { }
 
   ngOnInit(): void {
-  }
+
 
 }
+
+}
+

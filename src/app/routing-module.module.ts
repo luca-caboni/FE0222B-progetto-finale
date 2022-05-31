@@ -5,7 +5,7 @@ import { CustomersComponent } from './features/customers/customers.component';
 import { CustomerDetailsComponent } from './features/customer-details/customer-details.component';
 import { CustomerNewComponent } from './features/customer-new/customer-new.component';
 import { InvoicesComponent } from './features/invoices/invoices.component';
-import { InvoiceUpdateComponent } from './features/invoice-update/invoice-update.component';
+import { InvoiceDetailsComponent } from './features/invoice-details/invoice-details.component'
 import { InvoiceNewComponent } from './features/invoice-new/invoice-new.component';
 import { SignupComponent } from './features/auth/signup/signup.component';
 import { LoginComponent } from './features/auth/login/login.component';
@@ -43,7 +43,7 @@ const routes: Routes = [
   },
   {
     path: 'invoices/:id',
-    component: CustomerDetailsComponent,
+    component: InvoiceDetailsComponent,
     canActivate: [AuthGuard],
   },
   {
@@ -54,6 +54,11 @@ const routes: Routes = [
   {
     path: 'customers/add',
     component: CustomerNewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'customers/:id',
+    component: CustomerDetailsComponent,
     canActivate: [AuthGuard],
   },
   {

@@ -9,7 +9,7 @@ import { CustomerNewComponent } from './features/customer-new/customer-new.compo
 import { CustomersComponent } from './features/customers/customers.component'
 import { HomeComponent } from './features/home/home.component';
 import {InvoiceNewComponent } from './features/invoice-new/invoice-new.component';
-import { InvoiceUpdateComponent } from './features/invoice-update/invoice-update.component';
+import { InvoiceDetailsComponent } from './features/invoice-details/invoice-details.component';
 import { InvoicesComponent } from './features/invoices/invoices.component';
 import { UsersComponent } from './features/users/users.component';
 import { NavbarComponent } from './features/navbar/navbar.component';
@@ -22,6 +22,9 @@ import { MaterialModule } from './material/material.module';
 import { AppRoutingModule } from './routing-module.module';
 import { DialogDeleteInvoiceComponent } from './features/dialog/dialog-delete-invoice.component'
 import { DialogModifyInvoiceComponent } from './features/dialog/dialog-modify-invoice.component'
+import { DialogModifyCustomerComponent } from 'src/app/features/dialog/dialog-modify-customer.component';
+import { DialogDeleteCustomerComponent } from 'src/app/features/dialog/dialog-delete-customer.component';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 
 
@@ -35,12 +38,13 @@ import { DialogModifyInvoiceComponent } from './features/dialog/dialog-modify-in
     CustomersComponent,
     HomeComponent,
     InvoiceNewComponent,
-    InvoiceUpdateComponent,
+    InvoiceDetailsComponent,
     InvoicesComponent,
-    UsersComponent,
     NavbarComponent,
     DialogDeleteInvoiceComponent,
-    DialogModifyInvoiceComponent
+    DialogModifyInvoiceComponent,
+    DialogModifyCustomerComponent,
+    DialogDeleteCustomerComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,8 @@ import { DialogModifyInvoiceComponent } from './features/dialog/dialog-modify-in
     NgbModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    MatNativeDateModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

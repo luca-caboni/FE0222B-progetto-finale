@@ -9,16 +9,18 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+
+  isLoggedIn: boolean = false;
+
+
   @ViewChild(MatAccordion) accordion!: MatAccordion;
 
   user = localStorage.getItem('user');
+  control!: boolean;
+
   constructor(private router:Router, private authSrv: AuthService) { }
 
   ngOnInit(): void {
-  }
-
-  onLogout() {
-    this.accordion.closeAll()
-    this.authSrv.logout();
+    this.control=this.authSrv.isLogged;
   }
 }

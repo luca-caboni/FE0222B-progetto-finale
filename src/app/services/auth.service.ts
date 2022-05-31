@@ -1,33 +1,39 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { DataAuth } from '../models/data-auth';
 import { User } from '../models/user';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
+ pathApi:string;
+ authSubject= new BehaviorSubject<null | DataAuth>(null)
 
-  url: string = environment.pathApi;
+  userControl$= this.authSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
-
-  login(data: { username: string; password: string }) {
-    try {
-      console.log(data);
-      localStorage.setItem('user', JSON.stringify(data));
-      return this.http.post<any>(`${this.url}/api/auth/login`, data);
-    } catch (error) {
-      return console.log('Errore in login service' + error);
-    }
+  constructor(private http:HttpClient) {
+    this.pathApi=environment.pathApi;
+   }
+   login(data:any){
+    console.log(data)
+    return this.http.post<any>(this.pathApi+ '/api/auth/login',data)
   }
 
-  signup(user: User) {
-    console.log(user);
-    return this.http.post<any>(`${this.url}/api/auth/signup`, user);
-  }
+   signUp(data:any){
+    console.log(data)
+    return this.http.post<any>(this.pathApi+ '/api/auth/signup',data)
+   }
 
-  logout() {
-    localStorage.removeItem('user');
+  userGetAll(page:number,size:number){
+  return this.http.get<any>(`${this.pathApi}/api/users?page=${page}&size=${size}`)
+   }
+  get isLogged():boolean{
+    return localStorage.getItem('current-user')!= null;
   }
+  // get CurrentUser():User{
+  //   return JSON.parse(localStorage.getItem('current-user')) as User || null;
+  // }
 }

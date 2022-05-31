@@ -2,52 +2,39 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Customer } from '../models/customer';
-HttpClient
+
 @Injectable({
   providedIn: 'root'
 })
 export class CustomersService {
 
-  pathApi:string
-
-
+  pathApi: string;
   constructor(private http: HttpClient) {
-    this.pathApi = environment.pathApi
+    this.pathApi = environment.pathApi;
+  }
+
+  getCustomers(pageIndex: number, pageSize: number) {
+    return this.http.get<any>(
+      `${this.pathApi}/api/clienti?page=${pageIndex}&size=${pageSize}`
+    );
+  }
+
+  setCustomer(data:any,id:number){
+   if(id!=0){
+     return this.http.put(`${this.pathApi}/api/clienti/${id}`,data)
    }
-
-  getCustomers(page:number){
-    return this.http.get<any>(`${this.pathApi}/api/clienti?page=${page}&size=20&sort=id,ASC`)
+  console.log(data)
+    return this.http.post(
+      `${this.pathApi}/api/clienti`,data
+    )
   }
-
-  getCustomerById(id:number){
-    return this.http.get<any>(`${this.pathApi}/api/clienti/${id}`)
-  }
-
-  deleteInvoicesCustomer(id:number){
-    return this.http.delete(`${this.pathApi}/api/fatture/cliente/${id}`)
-  }
-
-  deleteCustomer(id:number){
-    return this.http.delete(`${this.pathApi}/api/clienti/${id}`)
-  }
-
-  addCustomer(customer:any){
-    return this.http.post<Customer>(`${this.pathApi}/api/clienti`, customer)
-  }
-
-  getProvince(){
-    return this.http.get<any>(`${this.pathApi}/api/province?page=0&size=20&sort=id,ASC`)
-  }
-
-  getCity(){
-    return this.http.get<any>(`${this.pathApi}/api/comuni?page=0&size=20&sort=id,ASC`)
-  }
-
-  getTypeCustomer(){
+  getCustomerType() {
     return this.http.get(`${this.pathApi}/api/clienti/tipicliente`);
   }
-
-  updateCustomer(id:number, data:any){
-    return this.http.put(`${this.pathApi}/api/clienti/${id}`, data)
+  getCustomerById(id: number) {
+    return this.http.get<any>(`${this.pathApi}/api/clienti/${id}`);
+  }
+  deleteCustomer(id: number) {
+    return this.http.delete<any>(`${this.pathApi}/api/clienti/${id}`);
   }
 }

@@ -1,18 +1,31 @@
-import { Site } from "./geo-data";
+import { Comune } from "./city";
 
-export class Customer {
-  id!: number;
- ragioneSociale!: string;
-  partitaIva!: number;
-  tipoCliente!: string;
-  email!: string;
-  pec!: string;
-  telefono!: number;
-  nomeContatto!: string;
-  cognomeContatto!: string;
-  telefonoContatto!: number;
-  emailContatto!: string;
-
-  indirizzoSedeOperativa: Site = new Site()
-  indirizzoSedeLegale: Site = new Site()
+export interface Customer {
+  email: string;
+  id: number;
+  partitaIva: string;
+  ragioneSociale: string;
+  tipoCliente: string;
+  pec: string;
+  telefono: string;
+  nomeContatto: string;
+  cognomeContatto: string;
+  telefonoContatto: string;
+  emailContatto: string;
+  indirizzoSedeOperativa: {
+    id: number;
+    via: string;
+    civico: string;
+    cap: string;
+    localita: string;
+    comune: Comune;
+  };
+  indirizzoSedeLegale: {
+    id: number;
+    via: string;
+    civico: string;
+    cap: string;
+    localita: string;
+    comune: Comune;
+  };
 }

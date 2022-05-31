@@ -1,158 +1,175 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DialogDeleteInvoiceComponent } from '../dialog/dialog-delete-invoice.component';
-import { DialogModifyInvoiceComponent } from '../dialog/dialog-modify-invoice.component';
-import { Invoice } from '../../models/invoice';
-import { CustomersService } from '../../services/customers.service'
-import { InvoicesService } from '../../services/invoices.service';
+import { Subscription } from 'rxjs';
+import { Customer } from 'src/app/models/customer';
+import { Comune } from 'src/app/models/city';
+import { Provincia } from 'src/app/models/province';
+import { CustomersService } from 'src/app/services/customers.service';
+import { ComuniService } from 'src/app/services/comuni.service';
+import { ProvinceService } from 'src/app/services/province.service';
+import { DialogModifyCustomerComponent } from '../dialog/dialog-modify-customer.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
-  selector: 'dettagli-cliente',
+  selector: 'app-customer-details',
   templateUrl: './customer-details.component.html',
   styleUrls: ['./customer-details.component.scss'],
 })
+
 export class CustomerDetailsComponent implements OnInit {
 
+  form!: FormGroup;
+  comuni!: Comune[];
+  province!: Provincia[];
+  tipiCliente!: any;
   customerId!: number;
-  invoices!: Invoice[];
-  page: number = 0;
-  currentIndex: number = this.page;
-  displayedColumns = ['id', 'cliente.ragioneSociale', 'importo', 'stato.nome'];
-
-
-  data = new Date();
-  ora = `${this.data.getHours()}:${this.data.getMinutes()}:${this.data.getSeconds()}`;
-  giorno = `${this.data.getDate()}/${this.data.getMonth()}/${this.data.getFullYear()}`;
+  cliente!: Customer;
+  sub!: Subscription;
+  check!: boolean;
 
   constructor(
-    public invoicesSrv: InvoicesService,
+    private formBuilder: FormBuilder,
     private customersSrv: CustomersService,
-    public dialog: MatDialog,
-    private router: ActivatedRoute,
-    private route: Router
+    private comuniSrv: ComuniService,
+    private provinceSrv: ProvinceService,
+    private currentRoute: ActivatedRoute,
+    private router: Router,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    this.router.params.subscribe({
-      next: (v) => {
-        console.log(v['id']);
-        this.customerId = v['id'];
-      },
-      error: (e) => console.error(e),
-      complete: () => console.info('id fattura acquisita'),
+    this.form = this.formBuilder.group({
+      nomeContatto: new FormControl(''), //
+      cognomeContatto: new FormControl(''), //
+      telefonoContatto: new FormControl(''), //
+      telefono: new FormControl(''), //
+      pec: new FormControl(''), //
+      tipoCliente: new FormControl('', [Validators.required]), //
+      emailContatto: new FormControl('', [Validators.required]), //
+      email: new FormControl('', [Validators.required]), //
+      partitaIva: new FormControl('', [Validators.required]), //
+      ragioneSociale: new FormControl('', [Validators.required]), //
+      indirizzoSedeOperativa: this.formBuilder.group({
+        via: new FormControl(''), //
+        cap: new FormControl(''), //
+        civico: new FormControl(''), //
+        localita: new FormControl(''), //
+        comune: this.formBuilder.group({
+          id: new FormControl('', Validators.required), //
+          nome: '',
+          provincia: {},
+        }),
+      }),
     });
-  }
 
-  ngAfterViewChecked() {
-    console.log('dopo caricamento');
-  }
-
-  avanzaPagina() {
-    //pagina successiva di fatture
-    this.currentIndex++;
-    console.log(this.currentIndex);
-    this.invoicesSrv.getInvoiceByCustomer(this.customerId, this.currentIndex).subscribe({
-      next: (v) => {
-        console.log(v.content);
-        this.invoices = v.content;
-      },
-      error: (e) => console.error(e),
-      complete: () => console.info('pagina fatture acquisita'),
+    //Fetch Comuni/Province
+    this.comuniSrv.getComuni().subscribe((res) => {
+      this.comuni = res.content;
     });
-  }
 
-  indietroPagina() {
-    //pagina precedente di fatture
-    this.currentIndex--;
-    console.log(this.currentIndex);
-    this.invoicesSrv.getInvoiceByCustomer(this.customerId, this.currentIndex).subscribe({
-      next: (v) => {
-        console.log(v.content);
-        this.invoices = v.content;
-      },
-      error: (e) => console.error(e),
-      complete: () => console.info('pagina fatture acquisita'),
+    this.provinceSrv.getProvince().subscribe((res) => {
+      this.province = res.content;
     });
+
+    //Customer type definition
+    this.customersSrv.getCustomerType().subscribe((res) => {
+      this.tipiCliente = res;
+    });
+    this.customerId = 0;
+
+    this.getCustomerId();
+    this.checkId(this.customerId)
+    this.fillForm();
   }
 
-  onModificaStato(event: any, invoice: Invoice) {
-    //modifica dello stato o eliminazione della fattura tramite switch
-    console.log(event);
-    switch (event) {
-      case '1': {
-        console.log(event.value + ' Stato non pagata, in attesa di modifiche');
-        let newStatus = {
-          id: 1,
-          nome: 'NON PAGATA',
-        };
-        invoice.status = newStatus;
-        this.invoicesSrv.modifyStatus(invoice).subscribe((res) => {
-          //forse si può passare statofattura
-          this.dialog.open(DialogModifyInvoiceComponent);
-        });
-        break;
+
+  getCustomerId() {
+    this.sub = this.currentRoute.params.subscribe((res) => {
+      this.customerId = +res['id'];
+      console.log('Id del cliente corrente: ' + this.customerId);
+    });
+    return this.customerId;
+  }
+
+  submit(form: { value: { indirizzoSedeOperativa: { comune: Comune } } }) {
+    console.log(form.value)
+
+    this.comuni.forEach(comune => {
+      if (comune.id == form.value.indirizzoSedeOperativa.comune.id) {
+        form.value.indirizzoSedeOperativa.comune = comune;
       }
-      case '2': {
-        console.log(event.value + ' Stato pagata, in attesa di modifiche');
-        let newStatus = {
-          id: 2,
-          nome: 'PAGATA',
-        };
-        invoice.status = newStatus;
-        this.invoicesSrv.modifyStatus(invoice).subscribe((res) => {
-          this.dialog.open(DialogModifyInvoiceComponent);
-        });
-        break;
-      }
-      case '3': {
-        console.log(event.value + ' Stato eliminata, in attesa di modifiche');
-        this.invoicesSrv.deleteInvoice(invoice.id).subscribe((res) => {
-          this.dialog.open(DialogDeleteInvoiceComponent);
-        });
-        break;
-      }
+    })
+    console.log(form.value)
+    this.customersSrv.setCustomer(form.value, this.customerId).subscribe(res => {
+      console.log(res)
+    })
+    console.log(this.form.value);
+    this.form.reset;
+    this.router.navigate(['/invoices'])
+  }
+
+  restoreData(customerId: number) {
+    this.customersSrv.getCustomerById(customerId).subscribe((res) => {
+      console.log(res);
+      this.cliente = res;
+      this.form.patchValue({
+        nomeContatto: this.cliente.nomeContatto,
+        cognomeContatto: this.cliente.cognomeContatto,
+        telefonoContatto: this.cliente.telefonoContatto,
+        telefono: this.cliente.telefono,
+        pec: this.cliente.pec,
+
+        tipoCliente: this.cliente.tipoCliente,
+        emailContatto: this.cliente.emailContatto,
+        email: this.cliente.email,
+        partitaIva: this.cliente.partitaIva,
+        ragioneSociale: this.cliente.ragioneSociale,
+
+        indirizzoSedeOperativa: {
+          via: this.cliente.indirizzoSedeOperativa.via,
+          cap: this.cliente.indirizzoSedeOperativa.cap,
+          civico: this.cliente.indirizzoSedeOperativa.civico,
+          localita: this.cliente.indirizzoSedeOperativa.localita,
+        },
+      })
+    })
+  }
+
+  fillForm() {
+    if (this.customerId != 0) {
+      this.restoreData(this.getCustomerId());
+      this.setComune();
     }
   }
 
-  mostraFatture(customerId: number) {
-    this.invoicesSrv.getInvoiceByCustomer(this.customerId, this.page).subscribe({
-      next: (v) => {
-        console.log(v.content);
-        this.invoices = v.content;
-      },
-      error: (e) => {
-        console.error('errore nella stampa dettagli cliente');
-        console.error(e);
-      },
-      complete: () => console.info('stampa fatture singolo cliente completata'),
-    });
+  setComune() {
+    this.comuniSrv.getComuni().subscribe(res => {
+      this.comuni = res.content;
+      this.comuni.forEach(comune => {
+        if (comune.id == this.cliente.indirizzoSedeOperativa.comune.id) {
+          console.log(comune.id, this.cliente.indirizzoSedeOperativa.comune.id)
+          this.form.value.indirizzoSedeOperativa.comune = comune;
+        }
+      })
+    })
   }
 
+  checkId(id: number) {
+    if (id != 0) {
+      this.check = true;
+    } else {
+      this.check = false;
+    }
+  }
+  openDialog(): void {
+    const dialogModCust = this.dialog.open(DialogModifyCustomerComponent, {
+      width: '250px',
+    });
 
-  deleteAll() {
-    //cancellazione cliente e fatture associate
-    this.customersSrv.deleteInvoicesCustomer(this.customerId).subscribe({
-      next: (v) => {
-        console.log('cancellazione cliente');
-        console.log(v);
-      },
-      error: (e) => {
-        console.error('errore nella cancellazione');
-        console.error(e);
-      },
-      complete: () => console.info('cancellazione cliente completata'),
+    dialogModCust.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
-    this.invoicesSrv.deleteInvoice(this.customerId).subscribe({
-      next: (v) => {
-        console.log("cancellazione fatture")
-        console.log(v);
-      },
-      error: (e) => console.error("errore nella cancellazione" + e),
-      complete: () => console.info('cancellazione fatture completata'),
-    });
-    setTimeout(() => {
-      this.route.navigate(['/customers']);
-    }, 1000);
   }
 }
