@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { CustomersService } from 'src/app/services/customers.service';
-import { DialogDeleteCustomerComponent} from '../dialog/dialog-delete-customer.component';
+import { DialogDeleteCustomerComponent } from '../dialog/dialog-delete-customer.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss'],
 })
+
 export class CustomersComponent implements OnInit {
 
   data = new Date();
@@ -26,7 +27,7 @@ export class CustomersComponent implements OnInit {
     'azioni',
   ];
 
-  constructor(private customersSrv: CustomersService, public dialog: MatDialog, private router: Router) {}
+  constructor(private customersSrv: CustomersService, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
     this.customersSrv.getCustomers(0, 20).subscribe((res) => {
@@ -60,7 +61,12 @@ export class CustomersComponent implements OnInit {
     this.openDialog();
     console.log(id);
     this.dataCustomers.content[id];
-    this.customersSrv.deleteCustomer(id).subscribe((res) => {});
+    this.customersSrv.deleteCustomer(id).subscribe((res) => { });
   }
 
+  mailTo(mail: string) {
+    window.location.href = "mailto:" + mail;
+  }
 }
+
+

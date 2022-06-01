@@ -1,23 +1,27 @@
-.container{
+.container {
   margin-top: 5rem;
 }
 
-li{
+li {
   display: inline-block;
   cursor: pointer;
   margin: 15px;
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
-li:hover{
-animation-name: pulse;
-animation-duration:1s;
+li:hover {
+  animation-name: pulse;
+  animation-duration: 1s;
 }
 
-ul{
+ul {
   list-style-type: none;
   text-align: center;
   padding: 0 !important;
+}
+
+.redirect {
+  padding: 4rem;
 }
 
 

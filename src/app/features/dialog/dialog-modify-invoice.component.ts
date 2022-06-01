@@ -17,6 +17,7 @@ import { InvoicesService } from '../../services/invoices.service';
   ]
 })
 export class DialogModifyInvoiceComponent implements OnInit {
+  
 
   constructor(public dialog: MatDialog, private invoicesSrv: InvoicesService) {}
 

@@ -16,7 +16,9 @@ import { MatDialog } from '@angular/material/dialog';
   styles: [
   ]
 })
+
 export class DialogModifyCustomerComponent implements OnInit {
+
 
   constructor(public dialog: MatDialog) {}
 

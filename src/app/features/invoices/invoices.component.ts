@@ -2,10 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Invoice } from 'src/app/models/invoice';
 import { InvoicesService } from 'src/app/services/invoices.service';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
 import { DialogDeleteInvoiceComponent } from '../dialog/dialog-delete-invoice.component';
 import { MatDialog } from '@angular/material/dialog';
 

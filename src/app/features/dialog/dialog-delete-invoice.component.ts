@@ -15,12 +15,15 @@ import { MatDialog } from '@angular/material/dialog';
   styles: [
   ]
 })
+
 export class DialogDeleteInvoiceComponent implements OnInit {
+
 
   constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
   }
+
   openDialog() {
     this.dialog.open(DialogDeleteInvoiceComponent);
   }
