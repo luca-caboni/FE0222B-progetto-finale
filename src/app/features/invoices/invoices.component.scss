@@ -1,13 +1,19 @@
 .mat-row .mat-cell {
   border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent;
   cursor: pointer;
 }
 
 .mat-row:hover .mat-cell {
-  border-color: currentColor;
+  border-color: black;
 }
 
+.add-button{
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  right: 3rem;
+  bottom: 2rem;
+}
 
 section {
   margin-top: 10px;
@@ -15,11 +21,52 @@ section {
   width: 90%;
 }
 
+
 #loading {
   display: flex;
   justify-content: center;
   margin-top: 5rem;
 }
+
+@media screen  and (max-width:992px){
+
+
+
+  table{
+    text-align: center;
+  }
+
+	/* Force table to not be like tables anymore */
+  th{
+    display: none;
+  }
+	td {
+		display: block;
+    text-align: center;
+	}
+  .mat-row:hover .mat-cell {
+    border-color: transparent;
+  }
+
+  .add-button{
+    display: flex;
+  justify-content: flex-end;
+  position: relative;
+  right: 1rem;
+  bottom: 0rem;
+  font-size: 1rem;
+
+  }
+
+  button{
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+
+
+	tr { border: 1px solid #ccc;}}
+
+
 
 
 

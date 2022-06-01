@@ -23,9 +23,9 @@ export class CustomerDetailsComponent implements OnInit {
   form!: FormGroup;
   comuni!: Comune[];
   province!: Provincia[];
-  tipiCliente!: any;
+  customerType!: any;
   customerId!: number;
-  cliente!: Customer;
+  customer!: Customer;
   sub!: Subscription;
   check!: boolean;
 
@@ -75,7 +75,7 @@ export class CustomerDetailsComponent implements OnInit {
 
     //Customer type definition
     this.customersSrv.getCustomerType().subscribe((res) => {
-      this.tipiCliente = res;
+      this.customerType = res;
     });
     this.customerId = 0;
 
@@ -113,25 +113,25 @@ export class CustomerDetailsComponent implements OnInit {
   restoreData(customerId: number) {
     this.customersSrv.getCustomerById(customerId).subscribe((res) => {
       console.log(res);
-      this.cliente = res;
+      this.customer = res;
       this.form.patchValue({
-        nomeContatto: this.cliente.nomeContatto,
-        cognomeContatto: this.cliente.cognomeContatto,
-        telefonoContatto: this.cliente.telefonoContatto,
-        telefono: this.cliente.telefono,
-        pec: this.cliente.pec,
+        nomeContatto: this.customer.nomeContatto,
+        cognomeContatto: this.customer.cognomeContatto,
+        telefonoContatto: this.customer.telefonoContatto,
+        telefono: this.customer.telefono,
+        pec: this.customer.pec,
 
-        tipoCliente: this.cliente.tipoCliente,
-        emailContatto: this.cliente.emailContatto,
-        email: this.cliente.email,
-        partitaIva: this.cliente.partitaIva,
-        ragioneSociale: this.cliente.ragioneSociale,
+        tipoCliente: this.customer.tipoCliente,
+        emailContatto: this.customer.emailContatto,
+        email: this.customer.email,
+        partitaIva: this.customer.partitaIva,
+        ragioneSociale: this.customer.ragioneSociale,
 
         indirizzoSedeOperativa: {
-          via: this.cliente.indirizzoSedeOperativa.via,
-          cap: this.cliente.indirizzoSedeOperativa.cap,
-          civico: this.cliente.indirizzoSedeOperativa.civico,
-          localita: this.cliente.indirizzoSedeOperativa.localita,
+          via: this.customer.indirizzoSedeOperativa.via,
+          cap: this.customer.indirizzoSedeOperativa.cap,
+          civico: this.customer.indirizzoSedeOperativa.civico,
+          localita: this.customer.indirizzoSedeOperativa.localita,
         },
       })
     })
@@ -148,8 +148,8 @@ export class CustomerDetailsComponent implements OnInit {
     this.comuniSrv.getComuni().subscribe(res => {
       this.comuni = res.content;
       this.comuni.forEach(comune => {
-        if (comune.id == this.cliente.indirizzoSedeOperativa.comune.id) {
-          console.log(comune.id, this.cliente.indirizzoSedeOperativa.comune.id)
+        if (comune.id == this.customer.indirizzoSedeOperativa.comune.id) {
+          console.log(comune.id, this.customer.indirizzoSedeOperativa.comune.id)
           this.form.value.indirizzoSedeOperativa.comune = comune;
         }
       })

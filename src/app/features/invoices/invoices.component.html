@@ -2,11 +2,16 @@
   <h1 class="text-center mt-3">Elenco fatture</h1>
 </div>
 
-<button [routerLink]="['/invoices/0', this.customerId]" *ngIf="this.check" color="accent" class="fs-4" mat-flat-button>
-  <mat-icon>add</mat-icon> Crea fattura
-</button>
 
 <div *ngIf="dataInvoices else loading">
+
+
+  <div *ngIf="check" class="add-button">
+    <button mat-raised-button color="primary" [routerLink]="['/invoices/0']" class="p-2">
+      <mat-icon>add</mat-icon>Aggiungi una fattura
+    </button>
+  </div>
+
   <table mat-table class="mat-elevation-z8 container-md" [dataSource]="dataInvoices.content">
 
     <ng-container matColumnDef="id">
@@ -39,9 +44,11 @@
 
     <ng-container matColumnDef="azioni">
       <th mat-header-cell *matHeaderCellDef class="text-center">Azioni</th>
-      <td mat-cell *matCellDef="let element">
-        <div class="container d-flex justify-content-evenly mx-2"> <button mat-raised-button color="warn"
-            (click)="delete(element.id)"><mat-icon>delete</mat-icon></button> <button mat-raised-button color="primary" [routerLink]="['/invoices', element.id]">Dettagli</button></div>
+      <td mat-cell class="azioni text-center" *matCellDef="let element">
+        <div class="">
+          <button class="mx-2" mat-raised-button color="warn" (click)="delete(element.id)"><mat-icon>delete</mat-icon></button>
+          <button mat-raised-button color="primary" [routerLink]="['/invoices', element.id]">Dettagli</button>
+        </div>
       </td>
     </ng-container>
 

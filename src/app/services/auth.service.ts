@@ -1,40 +1,44 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, switchMap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DataAuth } from '../models/data-auth';
-import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
- pathApi:string;
- authSubject= new BehaviorSubject<null | DataAuth>(null)
- loginStatus= new BehaviorSubject<boolean >(false)
+  pathApi: string;
 
-  userControl$= this.authSubject.asObservable();
+  loginStatus = new BehaviorSubject<boolean>(false)
+  loginControl$ = this.loginStatus.asObservable();
 
-  constructor(private http:HttpClient) {
-    this.pathApi=environment.pathApi;
-   }
-   login(data:any){
-    console.log(data)
-    return this.http.post<any>(this.pathApi+ '/api/auth/login',data)
+  isLoggedIn: boolean = false;
+
+
+  constructor(private http: HttpClient) {
+    this.pathApi = environment.pathApi;
   }
 
-   signUp(data:any){
+  login(data: DataAuth) {
+    this.isLoggedIn = true;
     console.log(data)
-    return this.http.post<any>(this.pathApi+ '/api/auth/signup',data)
-   }
-
-  userGetAll(page:number,size:number){
-  return this.http.get<any>(`${this.pathApi}/api/users?page=${page}&size=${size}`)
-   }
-  get isLogged():boolean{
-    return localStorage.getItem('current-user')!= null;
+    return this.http.post<DataAuth>(this.pathApi + '/api/auth/login', data)
   }
-  // get CurrentUser():User{
-  //   return JSON.parse(localStorage.getItem('current-user')) as User || null;
-  // }
+
+  signUp(data: any) {
+    console.log(data)
+    return this.http.post<any>(this.pathApi + '/api/auth/signup', data)
+  }
+
+  userGetAll(pageIndex: number, pageSize: number) {
+    return this.http.get<any>(`${this.pathApi}/api/users?page=${pageIndex}&size=${pageSize}`)
+  }
+  get isLogged(): boolean {
+    return localStorage.getItem('current-user') != null;
+  }
+
 }
+
+

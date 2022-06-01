@@ -1,13 +1,13 @@
-<div class="container-md">
+<div *ngIf="customer else loading" class="container-md">
   <mat-card id="login" class="m-5">
-    <mat-card-title class="text-center d-flex flex-nowrap"
-      >Pagina di Creazione/Modifica Cliente </mat-card-title
+    <mat-card-title class="text-center d-flex flex-nowrap mb-3"
+      >Dettagli cliente "{{this.customer.ragioneSociale}}"</mat-card-title
     >
     <form [formGroup]="form" (ngSubmit)="submit(form)">
 
       <mat-form-field class="form-group">
         <mat-label for="partitaIva" class="form-label fs-4 mb-3 mt-5"
-          >Partita Iva</mat-label
+          >Partita IVA</mat-label
         >
 
         <input
@@ -33,7 +33,7 @@
 
       <mat-form-field class="form-group">
         <mat-label for="ragioneSociale" class="form-label fs-4 mb-3 mt-5">
-          ragioneSociale</mat-label
+          Ragione sociale</mat-label
         >
         <input
           matInput
@@ -74,7 +74,7 @@
 
       <mat-form-field class="form-group">
         <mat-label for="emailContatto" class="form-label fs-4 mb-3 mt-5"
-          >email contatto</mat-label
+          >Email contatto</mat-label
         >
         <input
           matInput
@@ -93,7 +93,7 @@
       <mat-form-field class="form-group">
         <mat-label for="tipoCliente">Scegli il tipo cliente</mat-label>
         <mat-select formControlName="tipoCliente">
-          <mat-option *ngFor="let tipo of tipiCliente" value="{{ tipo }}">{{
+          <mat-option *ngFor="let tipo of customerType" value="{{ tipo }}">{{
             tipo
           }}</mat-option>
         </mat-select>
@@ -274,3 +274,9 @@
     </form>
   </mat-card>
 </div>
+
+<ng-template #loading>
+  <div id="loading">
+    <mat-spinner color="accent"></mat-spinner>
+  </div>
+</ng-template>

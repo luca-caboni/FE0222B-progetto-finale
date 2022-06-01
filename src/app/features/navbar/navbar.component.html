@@ -1,26 +1,21 @@
 <mat-accordion>
   <mat-expansion-panel class="mat-app-background">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <mat-icon>menu</mat-icon>
-      </mat-panel-title>
-      <mat-panel-title class="fs-4">
-        <span class="title">Epicode Invoice Manager</span>
-      </mat-panel-title>
-
-
-
-    </mat-expansion-panel-header>
-    <ul>
-      <ng-container *ngIf="control else notLogged">
+      <mat-expansion-panel-header>
+        <mat-panel-title><mat-icon class="text-white">menu</mat-icon></mat-panel-title>
+        <mat-panel-title>
+          <span class="title">Gestionale Fatture & Clienti</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+    <ul class="text-white">
+      <ng-container *ngIf="isLoggedIn() else notLogged">
         <li (click)="accordion.closeAll()" [routerLink]="['/']" routerLinkActive="active"
           [routerLinkActiveOptions]="{exact:true}">Home</li>
         <li (click)="accordion.closeAll()" [routerLink]="['/users']" routerLinkActive="active">Utenti</li>
         <li (click)="accordion.closeAll()" [routerLink]="['/invoices']" routerLinkActive="active">Fatture</li>
         <li (click)="accordion.closeAll()" [routerLink]="['/customers']" routerLinkActive="active">Clienti</li>
-        <li (click)="accordion.closeAll()" [routerLink]="['/contatti']" routerLinkActive="active">Contatti</li>
+        <li><mat-icon (click)="logout()" routerLinkActive="active" class="logout">logout</mat-icon></li>
       </ng-container>
-      <ng-template #notLogged>
+      <ng-template #notLogged class="text-white">
         <li (click)="accordion.closeAll()" [routerLink]="['/login']" routerLinkActive="active">Login</li>
         <li (click)="accordion.closeAll()" [routerLink]="['/signup']" routerLinkActive="active">Signup</li>
       </ng-template>
