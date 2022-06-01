@@ -62,6 +62,16 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'customers/invoices/:id',
+    component: InvoicesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'invoices/:id/:idCliente',
+    component: InvoiceDetailsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: '**',
     redirectTo: '/',
   },

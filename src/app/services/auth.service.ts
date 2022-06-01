@@ -11,6 +11,7 @@ import { User } from '../models/user';
 export class AuthService {
  pathApi:string;
  authSubject= new BehaviorSubject<null | DataAuth>(null)
+ loginStatus= new BehaviorSubject<boolean >(false)
 
   userControl$= this.authSubject.asObservable();
 

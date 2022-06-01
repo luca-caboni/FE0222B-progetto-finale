@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Invoice } from 'src/app/models/invoice';
 import { InvoicesService } from 'src/app/services/invoices.service';
@@ -31,7 +31,7 @@ export class InvoicesComponent implements OnInit{
   day = `${this.data.getDate()}/${this.data.getMonth()}/${this.data.getFullYear()}`;
 
 
-  constructor(private invoicesSrv: InvoicesService, private currentRoute: ActivatedRoute, public dialog: MatDialog) { }
+  constructor(private invoicesSrv: InvoicesService, private currentRoute: ActivatedRoute, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getCustomerId();
@@ -56,6 +56,7 @@ export class InvoicesComponent implements OnInit{
       console.log(res);
     });
   }
+
   getCustomerId() {
     this.sub = this.currentRoute.params.subscribe((res) => {
       console.log(res);
@@ -87,17 +88,6 @@ export class InvoicesComponent implements OnInit{
     dialogDel.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
-  }
-
-
-  sendMail(mail: string) {
-    console.log("mail");
-    window.location.href = "mailto:" + mail;
-  }
-
-  call(tel: number) {
-    console.log("tel");
-    window.location.href = "telto:" + tel;
   }
 }
 

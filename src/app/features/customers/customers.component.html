@@ -3,57 +3,55 @@
 </div>
 
 <div *ngIf="dataCustomers else loading">
-  <div class="demo-button-container text-center">
-    <button mat-raised-button  style="background-color: green;color: white;" [routerLink]="['/customers/0']" class="">
-      Aggiungi Cliente
-    </button>
+  <div class="add-button">
+    <button mat-raised-button color="primary" [routerLink]="['/customers/0']" class="p-2"><mat-icon>add</mat-icon>Aggiungi un cliente</button>
   </div>
 
 
   <table mat-table class="mat-elevation-z8 container-md" [dataSource]="dataCustomers.content">
     <!-- RagioneSociale  -->
     <ng-container matColumnDef="ragioneSociale">
-      <th mat-header-cell *matHeaderCellDef class="text-center">Ragione Sociale</th>
-      <td mat-cell *matCellDef="let element">{{ element.ragioneSociale }}</td>
+      <th mat-header-cell class="text-center" *matHeaderCellDef class="text-center">Ragione Sociale</th>
+      <td mat-cell class="text-left" *matCellDef="let element">{{ element.ragioneSociale }}</td>
     </ng-container>
 
     <!-- Email  -->
     <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef class="text-center">Email</th>
-      <td mat-cell *matCellDef="let element" class="text-center">{{ element.email }}</td>
+      <th mat-header-cell class="text-center" *matHeaderCellDef class="text-center">Email</th>
+      <td mat-cell class="text-center" *matCellDef="let element" class="text-center">{{ element.email }}</td>
     </ng-container>
 
     <!-- PartitaIva  -->
     <ng-container matColumnDef="partitaIva">
-      <th mat-header-cell *matHeaderCellDef>P.Iva</th>
-      <td mat-cell *matCellDef="let element">{{ element.partitaIva }}</td>
+      <th mat-header-cell class="text-center" *matHeaderCellDef>P.Iva</th>
+      <td mat-cell class="text-center" *matCellDef="let element">{{ element.partitaIva }}</td>
     </ng-container>
 
     <!--tipoCliente  -->
     <ng-container matColumnDef="tipoClienti">
-      <th mat-header-cell *matHeaderCellDef>Tipo Cliente</th>
-      <td mat-cell *matCellDef="let element" class="text-center
+      <th mat-header-cell class="text-center" *matHeaderCellDef>Tipo Cliente</th>
+      <td mat-cell class="text-center" *matCellDef="let element" class="text-center
       ">{{ element.tipoCliente}}</td>
     </ng-container>
     <!--EmailContatto   -->
     <ng-container matColumnDef="emailContatto" class="text-center">
-      <th mat-header-cell *matHeaderCellDef class="text-center">email contatto</th>
-      <td mat-cell *matCellDef="let element">
+      <th mat-header-cell class="text-center" *matHeaderCellDef class="text-center">email contatto</th>
+      <td mat-cell class="text-center" *matCellDef="let element">
         {{ element.emailContatto }}
       </td>
     </ng-container>
   <!-- ComuneSede  -->
     <ng-container matColumnDef="comuneSedeOperativa">
-      <th mat-header-cell *matHeaderCellDef>Comune Sede Operativa</th>
-      <td mat-cell *matCellDef="let element">
+      <th mat-header-cell class="text-center" *matHeaderCellDef>Comune Sede Operativa</th>
+      <td mat-cell class="text-center" *matCellDef="let element">
         {{ element.indirizzoSedeOperativa.comune.nome }}
       </td>
     </ng-container>
   <!-- Azioni  -->
   <ng-container matColumnDef="azioni">
-    <th mat-header-cell *matHeaderCellDef class="text-center">Azioni</th>
-    <td mat-cell *matCellDef="let element">
-     <div class="container d-flex justify-content-evenly mx-2"> <button mat-raised-button color="warn" (click)="delete(element.id)"> Elimina</button> <button mat-raised-button color="primary" [routerLink]="['/customers/',element.id]">Dettagli</button> <button mat-raised-button color="accent" [routerLink]="['/clienti/fatture',element.id]">Fatture</button></div>
+    <th mat-header-cell class="text-center" *matHeaderCellDef class="text-center">Azioni</th>
+    <td mat-cell class="text-center" *matCellDef="let element">
+     <div class="container d-flex justify-content-evenly mx-2"> <button mat-raised-button color="warn" (click)="delete(element.id)"><mat-icon>delete</mat-icon></button> <button mat-raised-button color="primary" [routerLink]="['/customers/',element.id]">Dettagli</button> <button mat-raised-button color="accent" [routerLink]="['/customers/invoices', element.id]">Fatture</button></div>
     </td>
   </ng-container>
 
@@ -61,15 +59,18 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
   <section><em>Aggiornato alle {{hour}} del {{day}}</em></section>
-  <mat-paginator
-    [length]="this.dataCustomers.totalElements"
-    [pageSizeOptions]="[20,10,5]"
-    aria-label="Select page"
-    (page)="onPageEvent($event)"
-    class=""
-    showFirstLastButtons="true"
-  >
-  </mat-paginator>
+
+  <div class="container-md">
+    <mat-paginator
+      [length]="this.dataCustomers.totalElements"
+      [pageSizeOptions]="[20,10,5]"
+      aria-label="Select page"
+      (page)="onPageEvent($event)"
+      class=""
+      showFirstLastButtons="true"
+    >
+    </mat-paginator>
+  </div>
 </div>
 
 

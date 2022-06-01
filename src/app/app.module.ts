@@ -40,11 +40,12 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     InvoiceNewComponent,
     InvoiceDetailsComponent,
     InvoicesComponent,
+    UsersComponent,
     NavbarComponent,
     DialogDeleteInvoiceComponent,
     DialogModifyInvoiceComponent,
     DialogModifyCustomerComponent,
-    DialogDeleteCustomerComponent
+    DialogDeleteCustomerComponent,
   ],
   imports: [
     BrowserModule,

@@ -88,7 +88,7 @@ export class CustomerDetailsComponent implements OnInit {
   getCustomerId() {
     this.sub = this.currentRoute.params.subscribe((res) => {
       this.customerId = +res['id'];
-      console.log('Id del cliente corrente: ' + this.customerId);
+      console.log('Id del cliente ' + this.customerId);
     });
     return this.customerId;
   }

@@ -51,9 +51,11 @@ export class InvoiceDetailsComponent implements OnInit {
 
     this.invoiceId = 0;
     this.getInvoiceId();
-    this.getCustomerId();
     this.checkInvId(this.invoiceId);
-    this.fillForm()
+    this.getCustomerId();
+    this.fillForm();
+
+
   }
 
   submit(form: {

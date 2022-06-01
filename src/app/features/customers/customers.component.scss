@@ -8,8 +8,12 @@
   border-color: currentColor;
 }
 
-.forward{
-  text-align: end;
+.add-button{
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  right: 3rem;
+  bottom: 2rem;
 }
 
 section {
