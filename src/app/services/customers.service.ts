@@ -6,9 +6,12 @@ import { Customer } from '../models/customer';
 @Injectable({
   providedIn: 'root'
 })
+
 export class CustomersService {
 
   pathApi: string;
+
+
   constructor(private http: HttpClient) {
     this.pathApi = environment.pathApi;
   }
@@ -19,13 +22,13 @@ export class CustomersService {
     );
   }
 
-  setCustomer(data:any,id:number){
-   if(id!=0){
-     return this.http.put(`${this.pathApi}/api/clienti/${id}`,data)
-   }
-  console.log(data)
+  setCustomer(data: any, id: number) {
+    if (id != 0) {
+      return this.http.put(`${this.pathApi}/api/clienti/${id}`, data)
+    }
+    console.log(data)
     return this.http.post(
-      `${this.pathApi}/api/clienti`,data
+      `${this.pathApi}/api/clienti`, data
     )
   }
   getCustomerType() {

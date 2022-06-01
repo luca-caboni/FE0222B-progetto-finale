@@ -5,12 +5,15 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
+
 export class InvoicesService {
 
   pathApi = environment.pathApi;
+
+
   constructor(private http: HttpClient) { }
 
-  getAllInvoices(pageIndex: number, pageSize:number) {
+  getAllInvoices(pageIndex: number, pageSize: number) {
     return this.http.get<any>(`${this.pathApi}/api/fatture?page=${pageIndex}&size=${pageSize}&sort=id,ASC`)
   }
   getInvoicesById(id: number) {

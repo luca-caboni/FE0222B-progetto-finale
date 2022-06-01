@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
-import {AuthInterceptor} from './features/auth/auth.interceptor'
+import { AuthInterceptor } from './features/auth/auth.interceptor'
 import { LoginComponent } from './features/auth/login/login.component';
 import { SignupComponent } from './features/auth/signup/signup.component';
 import { CustomerDetailsComponent } from './features/customer-details/customer-details.component'
-import { CustomerNewComponent } from './features/customer-new/customer-new.component';
 import { CustomersComponent } from './features/customers/customers.component'
 import { HomeComponent } from './features/home/home.component';
-import {InvoiceNewComponent } from './features/invoice-new/invoice-new.component';
 import { InvoiceDetailsComponent } from './features/invoice-details/invoice-details.component';
 import { InvoicesComponent } from './features/invoices/invoices.component';
 import { UsersComponent } from './features/users/users.component';
@@ -34,10 +32,8 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     LoginComponent,
     SignupComponent,
     CustomerDetailsComponent,
-    CustomerNewComponent,
     CustomersComponent,
     HomeComponent,
-    InvoiceNewComponent,
     InvoiceDetailsComponent,
     InvoicesComponent,
     UsersComponent,
@@ -65,4 +61,4 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
   },],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

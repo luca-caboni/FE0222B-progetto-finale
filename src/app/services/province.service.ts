@@ -5,9 +5,13 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
+
 export class ProvinceService {
-  pathApi=environment.pathApi;
-  constructor(private http: HttpClient) {}
+
+  pathApi = environment.pathApi;
+
+
+  constructor(private http: HttpClient) { }
 
   getProvince() {
     return this.http.get<any>(`${this.pathApi}/api/province`)
